@@ -22,19 +22,20 @@ class CompletionClient:
         Returns:
             The generated response.
         """
+        json_data = {
+    'model': f'{model}',
+    'messages': [
+        {
+            'role': 'user',
+                    'content': prompt,
+        },
+    ],
+    }
         response = self._session.post(
-            self._api_url,
-            headers=self._headers,
-            json={
-                "prompt": prompt,
-                "model": model,
-                "max_tokens": self.MAX_TOKENS,
-                "temperature": self.TEMPERATURE,
-            },
-            timeout=self.TIMEOUT,
+            'https://api.openai.com/v1/chat/completions', headers=self._headers, json=json_data
         )
         response.raise_for_status()
-        return response.json()["choices"][0]["text"].strip()
+        return response.json()["choices"][0]["message"]["content"].strip()
 
 
 def build_completion_client(token: str, api_url: str) -> CompletionClient:
