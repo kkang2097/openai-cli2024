@@ -39,7 +39,7 @@ def repl(token: str, model: str) -> None:
 
 
 def get_api_url() -> str:
-    return os.environ.get("OPENAI_API_URL", "https://api.openai.com/v1/completions")
+    return os.environ.get("OPENAI_API_URL", "https://api.openai.com/v1/chat/completions")
 
 
 def get_token(token: str) -> str:
